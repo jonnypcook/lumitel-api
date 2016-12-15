@@ -1,0 +1,32 @@
+version: '2'
+services:
+    web:
+        build:
+            context: ./
+            dockerfile: web.docker
+        volumes:
+            - ../:/var/www
+        ports:
+            - "8080:80"
+        links:
+            - app
+    app:
+        build:
+            context: ./
+            dockerfile: app.docker
+        volumes:
+            - ../:/var/www
+        links:
+            - database
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=database"
+    database:
+        image: mysql:5.6
+        environment:
+            - "MYSQL_ROOT_PASSWORD=2@2h31EYU1^g"
+            - "MYSQL_DATABASE=lumitel"
+            - "MYSQL_USER=lumitel"
+            - "MYSQL_PASSWORD=r09m9D!GF9&7"
+        ports:
+            - "33061:3306"
