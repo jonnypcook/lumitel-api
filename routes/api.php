@@ -1,6 +1,6 @@
 <?php
-
 use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})//->middleware('auth:api')
+})->middleware('auth:api')
 ;
 
 Route::resource('questions', 'QuestionsController');
@@ -27,7 +27,7 @@ Route::resource('questions', 'QuestionsController');
 // list installations
 Route::get('installation', 'InstallationController@index');
 // get installation
-Route::get('installation/{id}', 'InstallationController@show');
+Route::get('installation/{id}', 'InstallationController@show')->middleware('auth:api');
 // delete installation
 Route::delete('installation/{id}', 'InstallationController@destroy');
 // update installation
