@@ -17,11 +17,13 @@ class InstallationController extends Controller
     public function index()
     {
         //Get all task
-        $installations = Installation::paginate(15);
+//        $installations = Installation::paginate(15);
+        $installations = Installation::all();
 
         // Return a collection of $task with pagination
         //TODO: how do we transform data using transformers?
-        return $this->response->withPaginator($installations, new  InstallationTransformer());
+//        return $this->response->withPaginator($installations, new  InstallationTransformer());
+        return $this->response->withCollection($installations, new InstallationTransformer());
     }
 
     /**
