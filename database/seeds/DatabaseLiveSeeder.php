@@ -13,5 +13,6 @@ class DatabaseLiveSeeder extends Seeder
     {
         $this->call(DeviceTypeSeeder::class);
         $this->call(ActivityTypeSeeder::class);
+        $this->call(RolePermissionSeeder::class);
     }
 }

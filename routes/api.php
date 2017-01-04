@@ -18,8 +18,10 @@ use Illuminate\Http\Request;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:api')
-;
+})->middleware('auth:api');
+
+Route::get('/user/permission', 'PermissionController@index')->middleware('auth:api');
+
 
 /**
  * TODO: REMOVE THIS!
@@ -40,3 +42,4 @@ Route::delete('installation/{id}', 'InstallationController@destroy');
 Route::put('installation', 'InstallationController@store');
 // create installation
 Route::post('installation', 'InstallationController@store');
+

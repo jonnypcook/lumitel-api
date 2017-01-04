@@ -35,4 +35,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Activity', 'user_id', 'user_id');
     }
+
+    /**
+     * The permissions that belong to the role.
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'user_role', 'user_id', 'role_id');
+    }
 }

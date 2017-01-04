@@ -15,7 +15,9 @@ class DatabaseTestSeeder extends Seeder
         $this->call(DatabaseLiveSeeder::class);
 
         // call test data generation seeders
-        $users = factory(App\User::class)->create(['name' => 'Jonny Cook', 'email' => 'jonny.p.cook@gmail.com']);
+        $user = factory(App\User::class)->create(['name' => 'Jonny Cook', 'email' => 'jonny.p.cook@gmail.com']);
+        $user->roles()->attach([1]);
+
         $spaces = factory(App\Space::class, 3)
             ->create()
             ->each(function ($space) {
