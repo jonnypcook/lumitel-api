@@ -12,21 +12,24 @@ class PermissionController extends Controller
      * @param int $depth
      * @return array
      */
-    private function findPermissions ($roles, $depth = 0) {
+    private function findAuthorization ($roles, $depth = 0) {
         if ($depth > 3) {
-            return array();
+            return array('permissions' => array(), 'roles' => array());
         }
 
-        $permissions = array();
+        $authorization = array('permissions' => array(), 'roles' => array());
         foreach ($roles as $role) {
+            $authorization['roles'][$role->role_id] = $role->name;
             foreach ($role->permissions as $permission) {
-                $permissions[$permission->permission_id] = $permission->name;
+                $authorization['permissions'][$permission->permission_id] = $permission->name;
             }
 
-            $permissions = $permissions + $this->findPermissions($role->roles, $depth + 1);
+            $auth = $this->findAuthorization($role->roles, $depth + 1);
+            $authorization['permissions'] += $auth['permissions'];
+            $authorization['roles'] += $auth['roles'];
         }
 
-        return $permissions;
+        return $authorization;
     }
 
     /**
@@ -36,8 +39,8 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = $this->findPermissions($request->user()->roles);
+        $authorization = $this->findAuthorization($request->user()->roles);
 
-        return $this->response->withArray(array('permissions' => $permissions));
+        return $this->response->withArray($authorization);
     }
 }
