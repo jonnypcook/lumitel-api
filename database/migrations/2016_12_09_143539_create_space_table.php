@@ -15,11 +15,22 @@ class CreateSpaceTable extends Migration
     {
         Schema::create('space', function (Blueprint $table) {
             $table->increments('space_id');
+            $table->integer('installation_id')->unsigned();
+            $table->integer('parent_id')->unsigned()->nullable();
+            $table->integer('image_id')->unsigned()->nullable();
+
             $table->string('name', 100);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->integer('floor_id')->unsigned();
-            $table->foreign('floor_id')->references('floor_id')->on('floor');
+            $table->smallInteger('level');
+            $table->double('width')->unsigned();
+            $table->double('height')->unsigned();
+            $table->double('left')->unsigned()->nullable();
+            $table->double('top')->unsigned()->nullable();
+
+            $table->foreign('installation_id')->references('installation_id')->on('installation');
+            $table->foreign('image_id')->references('image_id')->on('image');
+            $table->foreign('parent_id')->references('space_id')->on('space');
         });
     }
 

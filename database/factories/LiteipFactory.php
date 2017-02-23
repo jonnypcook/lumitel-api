@@ -12,9 +12,12 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Liteip::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\DeviceLiteIp::class, function (Faker\Generator $faker) {
     return [
-        'serial' => $faker->isbn13,
+        'serial' => $faker->numberBetween(8300000, 8399999),
         'vendor_id' => $faker->numberBetween(1, 10000),
+        'profile_id' => $faker->numberBetween(1, 20),
+        'emergency_checked' => new DateTime(),
+        'emergency' => $faker->boolean(),
     ];
 });

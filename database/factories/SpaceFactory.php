@@ -12,11 +12,18 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Space::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Space::class, function (Faker\Generator $faker) {
     return [
+        'parent_id' => null,
+        'image_id' => null,
         'name' => implode(' ', $faker->words($faker->numberBetween(1,5))),
-        'floor_id' => function () {
-            return factory(App\Floor::class)->create()->floor_id;
+        'level' => 0,
+        'width' => 850,
+        'height' => 550,
+        'left' => 0,
+        'top' => 0,
+        'installation_id' => function () {
+            return factory(App\Models\Installation::class)->create()->installation_id;
         },
     ];
 });

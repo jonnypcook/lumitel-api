@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\LiteIP\ConsumeDrawing::class,
+        Commands\LiteIP\ConsumeProject::class,
+        Commands\LiteIP\EmergencyReport::class
     ];
 
     /**

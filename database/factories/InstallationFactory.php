@@ -12,15 +12,15 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Installation::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Installation::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->buildingNumber . ' ' . $faker->streetName,
         'commissioned' => $faker->dateTime(),
         'owner_id' => function () {
-            return factory(App\Owner::class)->create()->owner_id;
+            return factory(App\Models\Owner::class)->create()->owner_id;
         },
         'address_id' => function () {
-            return factory(App\Address::class)->create()->address_id;
+            return factory(App\Models\Address::class)->create()->address_id;
         }
     ];
 });

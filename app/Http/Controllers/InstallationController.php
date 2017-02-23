@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Installation;
+use App\Models\Installation;
 use App\Transformer\InstallationTransformer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;

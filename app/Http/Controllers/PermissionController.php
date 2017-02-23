@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 class PermissionController extends Controller
 {
@@ -37,8 +40,31 @@ class PermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, UserRepository $users)
     {
+//        $url = 'http://portal.liteip.com/8p3/GetProjectID.aspx';
+//        $client = new Client(); //GuzzleHttp\Client
+//
+//        $res = $client->get($url);
+//        echo $res->getStatusCode();
+//// "200"
+//        //echo $res->getHeader('content-type');
+//// 'application/json; charset=utf8'
+//        $body =  json_decode($res->getBody());
+//        print_r($body);
+//
+//        die('STOP!!');
+////        $client = new Client(); //GuzzleHttp\Client
+//
+//
+//        die('errr');
+//        // Find all entities
+//        foreach ($users->findAll() as $user) {
+//            echo $user->name, '<br>';
+//        }
+//
+//        echo $users->find(1)->name, '<br>';
+//        die('STOP');
         $authorization = $this->findAuthorization($request->user()->roles);
 
         return $this->response->withArray($authorization);

@@ -17,6 +17,7 @@ class CreateActivitiesTable extends Migration
             $table->increments('activity_id');
             $table->integer('activity_type_id')->unsigned();
             $table->integer('user_id')->unsigned();
+
             $table->timestamp('created')->default(\Illuminate\Support\Facades\DB::raw('CURRENT_TIMESTAMP'));
             $table->string('description')->nullable();
             $table->string('object_type');

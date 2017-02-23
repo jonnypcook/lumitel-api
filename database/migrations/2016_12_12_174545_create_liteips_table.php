@@ -13,10 +13,18 @@ class CreateLiteipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('liteip', function (Blueprint $table) {
-            $table->increments('liteip_id');
-            $table->string('serial');
+        Schema::create('device_liteip', function (Blueprint $table) {
+            $table->increments('device_liteip_id');
+            $table->integer('device_liteip_status_id')->unsigned()->nullable();
+
+            $table->unsignedInteger('serial');
             $table->unsignedInteger('vendor_id');
+            $table->unsignedInteger('profile_id');
+            $table->dateTime('emergency_checked')->nullable();
+            $table->boolean('emergency');
+
+            $table->foreign('device_liteip_status_id')->references('device_liteip_status_id')->on('device_liteip_status');
+
             $table->timestamps();
         });
     }
@@ -28,6 +36,6 @@ class CreateLiteipsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('liteip');
+        Schema::dropIfExists('device_liteip');
     }
 }

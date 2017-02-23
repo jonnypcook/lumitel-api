@@ -20,13 +20,15 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('/user/permission', 'PermissionController@index')->middleware('auth:api');
+Route::get('/user/permission', 'PermissionController@index')
+    ->middleware('auth:api')
+;
 
 
 /**
  * TODO: REMOVE THIS!
  */
-Route::resource('questions', 'QuestionsController');
+//Route::resource('questions', 'QuestionsController');
 
 
 /*

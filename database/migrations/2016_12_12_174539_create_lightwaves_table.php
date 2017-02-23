@@ -13,8 +13,8 @@ class CreateLightwavesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lightwave', function (Blueprint $table) {
-            $table->increments('lightwave_id');
+        Schema::create('device_lightwave', function (Blueprint $table) {
+            $table->increments('device_lightwave_id');
             $table->string('code');
             $table->unsignedInteger('vendor_id');
             $table->timestamps();
@@ -28,6 +28,6 @@ class CreateLightwavesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lightwave');
+        Schema::dropIfExists('device_lightwave');
     }
 }

@@ -15,10 +15,10 @@ class CreateInstallationTable extends Migration
     {
         Schema::create('installation', function (Blueprint $table) {
             $table->increments('installation_id');
-            $table->string('name', 100);
-            $table->dateTime('commissioned');
             $table->integer('owner_id')->unsigned();
             $table->integer('address_id')->unsigned();
+            $table->string('name', 100);
+            $table->dateTime('commissioned');
             $table->timestamps();
 
             // setup keys

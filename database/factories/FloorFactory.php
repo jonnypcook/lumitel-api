@@ -12,14 +12,14 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Floor::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Floor::class, function (Faker\Generator $faker) {
     $level = $faker->numberBetween(0, 20);
     return [
         'name' => 'Level ' . $level,
         'level' => $level,
         'image' => false,
         'installation_id' => function () {
-            return factory(App\Installation::class)->create()->installation_id;
+            return factory(App\Models\Installation::class)->create()->installation_id;
         }
     ];
 });

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\DeviceType;
+use App\Models\DeviceType;
 
 class DeviceTypeSeeder extends Seeder
 {

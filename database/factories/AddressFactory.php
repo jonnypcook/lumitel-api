@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Address::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Address::class, function (Faker\Generator $faker) {
     return [
         'line1' => $faker->streetAddress,
         'city' => $faker->city,

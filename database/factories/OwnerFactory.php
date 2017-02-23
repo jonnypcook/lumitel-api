@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Owner::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Owner::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
     ];

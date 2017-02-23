@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Lightwave::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\DeviceLightWave::class, function (Faker\Generator $faker) {
     return [
         'code' => $faker->uuid,
         'vendor_id' => $faker->numberBetween(10000, 99999),

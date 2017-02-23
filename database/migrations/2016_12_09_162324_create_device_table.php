@@ -17,12 +17,15 @@ class CreateDeviceTable extends Migration
             $table->increments('device_id');
             $table->integer('device_type_id')->unsigned();
             $table->integer('space_id')->unsigned();
-            $table->boolean('emergency')->default(false);
-            $table->integer('serial')->nullable();
 
             // setup polymorphic fields
             $table->integer('provider_id');
             $table->string('provider_type');
+
+            $table->boolean('emergency')->default(false);
+            $table->integer('serial')->nullable();
+            $table->integer('x')->nullable();
+            $table->integer('y')->nullable();
 
             $table->timestamps();
 
