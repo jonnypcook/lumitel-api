@@ -20,6 +20,14 @@ class Device extends Model
      */
     protected $primaryKey = 'device_id';
 
+
+    /**
+     * Fields that we allow to be set via array on create and update
+     *
+     * @var array
+     */
+    protected $fillable = ['device_type_id', 'space_id', 'provider_id', 'provider_type', 'label', 'emergency', 'x', 'y'];
+
     /**
      * Get the deviceType for the device
      */

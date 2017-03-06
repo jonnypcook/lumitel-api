@@ -10,7 +10,7 @@
         "laravel/passport": "^1.0",
         "ellipsesynergie/api-response": "^0.12.3",
         "barryvdh/laravel-cors": "^0.8.2",
-        "rinvex/repository": "^2.0",
+        "rinvex/repository": "^2.0.3",
         "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {

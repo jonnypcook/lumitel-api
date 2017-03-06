@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\ActivityType;
 use App\Repositories\ActivityRepository;
 use App\Repositories\ActivityRepositoryContract;
 use App\Repositories\ActivityTypeRepository;
@@ -41,6 +40,8 @@ use App\Repositories\RoleRepository;
 use App\Repositories\RoleRepositoryContract;
 use App\Repositories\SpaceRepository;
 use App\Repositories\SpaceRepositoryContract;
+use App\Repositories\TokenRepository;
+use App\Repositories\TokenRepositoryContract;
 use App\Repositories\UserRepository;
 use App\Repositories\UserRepositoryContract;
 use Illuminate\Support\ServiceProvider;
@@ -83,6 +84,7 @@ class RinvexContractProvider extends ServiceProvider
         $this->app->bind(PermissionRepositoryContract::class, PermissionRepository::class);
         $this->app->bind(RoleRepositoryContract::class, RoleRepository::class);
         $this->app->bind(SpaceRepositoryContract::class, SpaceRepository::class);
+        $this->app->bind(TokenRepositoryContract::class, TokenRepository::class);
         $this->app->bind(UserRepositoryContract::class, UserRepository::class);
     }
 }

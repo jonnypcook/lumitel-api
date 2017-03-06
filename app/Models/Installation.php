@@ -29,6 +29,14 @@ class Installation extends Model
     }
 
     /**
+     * Get the sources for the installation.
+     */
+    public function iotSources()
+    {
+        return $this->hasMany('App\Models\IotSource', 'installation_id', 'installation_id');
+    }
+
+    /**
      * Get the Owner for the Installation
      */
     public function owner()

@@ -2,14 +2,10 @@
 
 namespace App\Console\Commands\LiteIP;
 
-use App\Models\Installation;
-use App\Models\Owner;
 use App\Repositories\LiteipRepository;
 use App\Repositories\OwnerRepository;
-use App\Repositories\UserRepository;
-use App\Services\LiteIP\ConsumeTool;
+use App\Services\IoT\IotDiscoverable;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config;
 use Symfony\Component\Console\Output\OutputInterface;
 use Validator;
 
@@ -30,15 +26,18 @@ class ConsumeProject extends Command
     protected $description = 'Consume LiteIP project endpoint into existing installation';
 
 
-    private $consumeTool;
+    /**
+     * @var Discover
+     */
+    private $discover;
 
     /**
      * ConsumeProject constructor.
-     * @param ConsumeTool $consumeTool
+     * @param Discover $discover
      */
-    public function __construct(ConsumeTool $consumeTool)
+    public function __construct(IotDiscoverable $discover)
     {
-        $this->consumeTool = $consumeTool;
+        $this->discover = $discover;
         parent::__construct();
     }
 
@@ -94,8 +93,8 @@ class ConsumeProject extends Command
         }
 
         $this->info('starting project consumption', OutputInterface::VERBOSITY_VERBOSE);
-        $this->consumeTool->setThrowExceptions(true);
-        $this->consumeTool->consumeProject($projectIds, $owner);
+        $this->discover->setThrowExceptions(true);
+        $this->discover->consumeProject($projectIds, $owner);
 
     }
 

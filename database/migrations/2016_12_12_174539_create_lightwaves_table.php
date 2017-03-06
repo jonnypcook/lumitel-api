@@ -18,16 +18,10 @@ class CreateLightwavesTable extends Migration
             $table->unsignedInteger('vendor_id'); // equivalent to device_id
 
             // lightWave identifiers
-            $table->unsignedInteger('room_id')->default(0);
-            $table->unsignedInteger('zone_id')->default(0);
-            $table->unsignedInteger('user_id')->default(0);
-            $table->unsignedInteger('device_id');
-            $table->unsignedInteger('device_type_id');
             $table->unsignedInteger('wfl_id')->default(0);
             $table->unsignedInteger('dm_id')->default(0);
 
             // other
-            $table->string('name', 255);
             $table->boolean('active');
             $table->tinyInteger('device_number');
             $table->string('serial', 64);

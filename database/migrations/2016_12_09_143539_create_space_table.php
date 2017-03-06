@@ -19,12 +19,14 @@ class CreateSpaceTable extends Migration
             $table->integer('parent_id')->unsigned()->nullable();
             $table->integer('image_id')->unsigned()->nullable();
 
+            $table->integer('vendor_id')->unsigned()->nullable();
+
             $table->string('name', 100);
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->smallInteger('level');
-            $table->double('width')->unsigned();
-            $table->double('height')->unsigned();
+            $table->smallInteger('level')->nullable();
+            $table->double('width')->unsigned()->nullable();
+            $table->double('height')->unsigned()->nullable();
             $table->double('left')->unsigned()->nullable();
             $table->double('top')->unsigned()->nullable();
 

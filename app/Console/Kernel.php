@@ -13,9 +13,13 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\LiteIP\ConsumeDrawing::class,
-        Commands\LiteIP\ConsumeProject::class,
-        Commands\LiteIP\EmergencyReport::class
+        Commands\Lightwave\Consume::class,
+        Commands\LiteIP\Consume::class,
+
+        Commands\Rinvex\ClearCache::class,
+//        Commands\LiteIP\ConsumeDrawing::class,
+//        Commands\LiteIP\ConsumeProject::class,
+//        Commands\LiteIP\EmergencyReport::class
     ];
 
     /**

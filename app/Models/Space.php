@@ -21,6 +21,14 @@ class Space extends Model
     protected $primaryKey = 'space_id';
 
     /**
+     * Fields that we allow to be set via array on create and update
+     *
+     * @var array
+     */
+    protected $fillable = ['installation_id', 'parent_id', 'image_id', 'vendor_id', 'name', 'description', 'level',
+        'width', 'height', 'left', 'top'];
+
+    /**
      * Get the Installation for the device
      */
     public function space()

@@ -1,5 +1,5 @@
 <?php
-namespace App\Services\LiteIP;
+namespace App\Services\IoT\LiteIP;
 
 
 use App\Models\Address;
@@ -7,23 +7,91 @@ use App\Models\Installation;
 use App\Models\IotSource;
 use App\Models\Liteip;
 use App\Models\Owner;
-use App\Repositories\InstallationRepository;
-use App\Repositories\LiteipRepository;
-use App\Repositories\OwnerRepository;
+use App\Services\IoT\IotDiscoverable;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
 use Eloquent;
 use DB;
-class ConsumeTool
+
+class Discover implements IotDiscoverable
 {
+    /**
+     * @var string
+     */
+    private $discoverProjectUri;
 
     /**
-     * ConsumeTool constructor.
+     * @var string
      */
-    public function __construct()
-    {
+    private $discoverDrawingUri;
 
+    /**
+     * @var string
+     */
+    private $discoverDeviceUri;
+
+    /**
+     * Discover constructor.
+     * @param $discoverProjectUri
+     * @param $discoverDrawingUri
+     * @param $discoverDeviceUri
+     */
+    public function __construct($discoverProjectUri, $discoverDrawingUri, $discoverDeviceUri)
+    {
+        $this->discoverProjectUri = $discoverProjectUri;
+        $this->discoverDrawingUri = $discoverDrawingUri;
+        $this->discoverDeviceUri = $discoverDeviceUri;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscoverProjectUri()
+    {
+        return $this->discoverProjectUri;
+    }
+
+    /**
+     * @param mixed $discoverProjectUri
+     */
+    public function setDiscoverProjectUri($discoverProjectUri)
+    {
+        $this->discoverProjectUri = $discoverProjectUri;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscoverDrawingUri()
+    {
+        return $this->discoverDrawingUri;
+    }
+
+    /**
+     * @param mixed $discoverDrawingUri
+     */
+    public function setDiscoverDrawingUri($discoverDrawingUri)
+    {
+        $this->discoverDrawingUri = $discoverDrawingUri;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiscoverDeviceUri()
+    {
+        return $this->discoverDeviceUri;
+    }
+
+    /**
+     * @param mixed $discoverDeviceUri
+     */
+    public function setDiscoverDeviceUri($discoverDeviceUri)
+    {
+        $this->discoverDeviceUri = $discoverDeviceUri;
+    }
+
+
 
     protected $throwExceptions = false;
 
@@ -41,6 +109,18 @@ class ConsumeTool
     public function setThrowExceptions($throwExceptions)
     {
         $this->throwExceptions = $throwExceptions;
+    }
+
+    /**
+     * @param Owner $owner
+     * @param Installation $installation
+     * @param mixed $vendorIdentifier
+     * @return string
+     */
+    public function discover(Owner $owner, Installation $installation, $vendorIdentifier)
+    {
+        // TODO: Implement discover() method.
+        return __CLASS__;
     }
 
 

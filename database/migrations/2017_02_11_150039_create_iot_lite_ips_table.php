@@ -17,12 +17,12 @@ class CreateIotLiteIpsTable extends Migration
             $table->increments('liteip_id');
             $table->timestamps();
 
-            $table->string('name');
-            $table->string('postcode');
-            $table->unsignedInteger('customer_group');
+            $table->unsignedInteger('user_id');
+            $table->string('forename', 127)->nullable();
+            $table->string('surname', 127)->nullable();
+            $table->string('email', 127);
+            $table->string('_id', 36);
             $table->boolean('active');
-            $table->boolean('test');
-            $table->unsignedInteger('vendor_id');
         });
     }
 

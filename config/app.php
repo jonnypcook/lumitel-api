@@ -179,6 +179,7 @@ return [
         EllipseSynergie\ApiResponse\Laravel\ResponseServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
+        App\Providers\DiscoverServiceProvider::class,
     ],
 
     /*

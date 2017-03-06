@@ -22,8 +22,8 @@ class CreateDeviceTable extends Migration
             $table->integer('provider_id');
             $table->string('provider_type');
 
+            $table->string('label', 255)->nullable();
             $table->boolean('emergency')->default(false);
-            $table->integer('serial')->nullable();
             $table->integer('x')->nullable();
             $table->integer('y')->nullable();
 
