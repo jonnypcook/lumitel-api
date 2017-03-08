@@ -187,18 +187,14 @@ class Discover implements IotDiscoverable
                         'provider_type' => get_class($liteIpDevice),
                         'label' => $device->DeviceSN,
                         'emergency' => false,
-                        'x' => 0,
-                        'y' => 0,
+                        'x' => (int)$device->PosLeft,
+                        'y' => (int)$device->PosTop,
                     ]);
 
                     $results['added'] ++;
 
                 });
             }
-//            DB::transaction(function() use ($devices, $drawing, $installation)
-//            {
-//            }
-
         }
 
         return $results;
