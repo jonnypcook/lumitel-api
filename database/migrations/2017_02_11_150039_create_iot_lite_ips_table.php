@@ -15,14 +15,14 @@ class CreateIotLiteIpsTable extends Migration
     {
         Schema::create('liteip', function (Blueprint $table) {
             $table->increments('liteip_id');
-            $table->timestamps();
 
-            $table->unsignedInteger('user_id');
-            $table->string('forename', 127)->nullable();
-            $table->string('surname', 127)->nullable();
-            $table->string('email', 127);
-            $table->string('_id', 36);
+            $table->unsignedInteger('vendor_id');
+            $table->unsignedInteger('customer_id');
+
+            $table->string('postcode', 12);
+            $table->string('description', 255)->nullable();
             $table->boolean('active');
+            $table->timestamps();
         });
     }
 

@@ -21,6 +21,14 @@ class DeviceLiteIp extends Model
     protected $primaryKey = 'device_liteip_id';
 
     /**
+     * Fields that we allow to be set via array on create and update
+     *
+     * @var array
+     */
+    protected $fillable = ['device_liteip_status_id', 'serial', 'vendor_id', 'profile_id', 'emergency_checked', 'emergency'];
+
+
+    /**
      * Get the polymorphic device
      */
     public function device()

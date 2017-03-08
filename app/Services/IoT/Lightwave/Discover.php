@@ -81,14 +81,11 @@ class Discover implements IotDiscoverable, IotTokenable
     }
 
     /**
-     * @param Owner $owner
-     * @param Installation $installation
-     * @param mixed $vendorIdentifier
-     * @return bool
+     * request data from lw api
+     * @return mixed
      * @throws \Exception
      */
-    public function discover(Owner $owner, Installation $installation, $vendorIdentifier)
-    {
+    public function getApiDiscoveryData() {
         $token = $this->getToken();
         $client = new Client();
 
@@ -101,14 +98,26 @@ class Discover implements IotDiscoverable, IotTokenable
             ]
         ));
 
-
         if ($response->getStatusCode() !== 200) {
-            throw new \Exception('service failed to respond on: ' . $gatewayUrl);
+            throw new \Exception('service failed to respond on: ' . $this->getUri());
         }
 
-        // convert data into JSON
-        $discoveredData = json_decode($response->getBody(), true);
+        return json_decode($response->getBody(), true);
+    }
 
+    /**
+     * @param Owner $owner
+     * @param Installation $installation
+     * @param mixed $vendorIdentifier
+     * @return bool
+     * @throws \Exception
+     */
+    public function discover(Owner $owner, Installation $installation, $vendorIdentifier)
+    {
+        // get data from API
+        $discoveredData = $this->getApiDiscoveryData();
+
+        // check for users data structure
         if (empty($discoveredData['users'])) {
             throw new InvalidDataStructureException("users data not found");
         }
@@ -119,6 +128,7 @@ class Discover implements IotDiscoverable, IotTokenable
             throw new NotFoundException(sprintf('user %s not found in users collection', $vendorIdentifier));
         }
 
+        // ensure we only have one instance of this user
         if (count($user) !== 1) {
             throw new InvalidDataStructureException(sprintf('multiple user %s found in users collection (%d occurrences)', $vendorIdentifier, count($user)));
         }

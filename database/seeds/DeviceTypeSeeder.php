@@ -28,6 +28,7 @@ class DeviceTypeSeeder extends Seeder
                 array('device_type_id' => 6, 'name' =>'energy monitor'),
                 array('device_type_id' => 7, 'name' =>'socket switch'),
                 array('device_type_id' => 8, 'name' =>'hot water heater'),
+                array('device_type_id' => 9, 'name' =>'PIR'),
                 array('device_type_id' => 600, 'name' => 'unknown')
             )
         );

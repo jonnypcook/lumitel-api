@@ -17,9 +17,9 @@ class CreateLiteipsTable extends Migration
             $table->increments('device_liteip_id');
             $table->integer('device_liteip_status_id')->unsigned()->nullable();
 
-            $table->unsignedInteger('serial');
             $table->unsignedInteger('vendor_id');
             $table->unsignedInteger('profile_id');
+            $table->unsignedInteger('serial');
             $table->dateTime('emergency_checked')->nullable();
             $table->boolean('emergency');
 

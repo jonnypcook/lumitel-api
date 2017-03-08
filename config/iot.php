@@ -13,8 +13,8 @@ return [
     'liteip' => [
         'api' => [
             'project' => 'http://portal.liteip.com/8p3/GetProjectID.aspx',
-            'drawing' => 'http://portal.liteip.com/8p3/GetDrawingID.aspx?ProjectID=%d',
-            'device' => 'http://portal.liteip.com/8p3/GetDevice.aspx?DrawingID=%d&E3Only=%d',
+            'drawing' => 'http://portal.liteip.com/8p3/GetDrawingID.aspx',
+            'device' => 'http://portal.liteip.com/8p3/GetDevice.aspx',
         ]
     ],
     'litewaverf' => [

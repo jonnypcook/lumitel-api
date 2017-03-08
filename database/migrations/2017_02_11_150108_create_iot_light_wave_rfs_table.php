@@ -15,7 +15,6 @@ class CreateIotLightWaveRFsTable extends Migration
     {
         Schema::create('lightwave', function (Blueprint $table) {
             $table->increments('lightwave_id');
-            $table->timestamps();
 
             $table->unsignedInteger('vendor_id');
             $table->string('_id', 36);
@@ -24,6 +23,8 @@ class CreateIotLightWaveRFsTable extends Migration
             $table->string('email', 127);
             $table->boolean('active');
             $table->boolean('test');
+
+            $table->timestamps();
         });
     }
 
