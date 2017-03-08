@@ -17,8 +17,6 @@ class Kernel extends ConsoleKernel
         Commands\LiteIP\Consume::class,
 
         Commands\Rinvex\ClearCache::class,
-//        Commands\LiteIP\ConsumeDrawing::class,
-//        Commands\LiteIP\ConsumeProject::class,
 //        Commands\LiteIP\EmergencyReport::class
     ];
 
