@@ -31,7 +31,7 @@ class Space extends Model
     /**
      * Get the Installation for the device
      */
-    public function space()
+    public function installation()
     {
         return $this->belongsTo('App\Models\Installation', 'installation_id');
     }

@@ -18,8 +18,8 @@ class CreateIotLightWaveRFsTable extends Migration
 
             $table->unsignedInteger('vendor_id');
             $table->string('_id', 36);
-            $table->string('forename', 127);
-            $table->string('surname', 127);
+            $table->string('forename', 127)->nullable();
+            $table->string('surname', 127)->nullable();
             $table->string('email', 127);
             $table->boolean('active');
             $table->boolean('test');

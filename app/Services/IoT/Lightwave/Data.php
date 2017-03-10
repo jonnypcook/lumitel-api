@@ -154,15 +154,17 @@ class Data implements IotTokenable
     /**
      * @param $deviceId
      * @param $dataType
-     * @return bool
+     * @param bool $assoc
+     * @return mixed
      * @throws \Exception
      */
-    public function getData($deviceId, $dataType)
+    public function getData($deviceId, $dataType, $assoc = false)
     {
         $token = $this->getToken();
         $client = new Client();
 
         $url = sprintf($this->getUri(), $deviceId, $dataType);
+
         $queryData = [
             'from' => $this->getFrom()->format('Y-m-d\TH:i:s'),
             'to' => $this->getTo()->format('Y-m-d\TH:i:s'),
@@ -185,11 +187,7 @@ class Data implements IotTokenable
             throw new \Exception('service failed to respond on: ' . $gatewayUrl);
         }
 
-        $deviceData = json_decode($response->getBody());
-        print_r($deviceData);
-
-//        return json_decode($response->getBody());
-        return true;
+        return json_decode($response->getBody(), $assoc);
     }
 
 }

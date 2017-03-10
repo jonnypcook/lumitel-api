@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\Lightwave\Consume::class,
+        Commands\Lightwave\EnergyReport::class,
+
         Commands\LiteIP\Consume::class,
 
         Commands\Rinvex\ClearCache::class,

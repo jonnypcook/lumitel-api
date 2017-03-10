@@ -43,4 +43,51 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
     }
+
+    /**
+     * The installations that belong to the user.
+     */
+    public function installations()
+    {
+        return $this->belongsToMany('App\Models\Installation', 'user_installation', 'user_id', 'installation_id');
+    }
+
+    /**
+     * @param $roleToCheck
+     * @return bool
+     */
+    public function hasRole($roleToCheck) {
+        if (!empty($this->roles)) {
+            foreach ($this->roles as $role) {
+                if (($role->name === 'administrator') || ($role->name === $roleToCheck)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $permissionToCheck
+     * @return bool
+     */
+    public function hasPermission($permissionToCheck) {
+        if (!empty($this->roles)) {
+            foreach ($this->roles as $role) {
+                if ($role->name === 'administrator') {
+                    return true;
+                }
+
+                foreach ($role->permissions as $permission) {
+                    if ($permission->name === $permissionToCheck) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
 }

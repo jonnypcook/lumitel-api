@@ -8,6 +8,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
+    use ApiDetector;
+    use ApiHandler;
+
     /**
      * A list of the exception types that should not be reported.
      *
@@ -44,6 +47,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if($this->isApiCall($request)) {
+            return $this->getJsonResponseForException($request, $exception);
+        }
+
+
         return parent::render($request, $exception);
     }
 

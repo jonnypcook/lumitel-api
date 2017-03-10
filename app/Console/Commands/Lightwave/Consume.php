@@ -103,6 +103,8 @@ class Consume extends Command
         $this->info('consuming devices into installation', OutputInterface::VERBOSITY_VERBOSE);
         $this->discover->discover($owner, $installation, $this->argument('lwUser'));
 
+//        $this->info('consuming timers into installation', OutputInterface::VERBOSITY_VERBOSE);
+
         $this->info('Finished');
     }
 

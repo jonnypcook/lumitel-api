@@ -54,5 +54,10 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'auth.route.device' => \App\Http\Middleware\AuthoriseDeviceRoute::class,
+        'auth.route.space' => \App\Http\Middleware\AuthoriseSpaceRoute::class,
+        'auth.route.installation' => \App\Http\Middleware\AuthoriseInstallationRoute::class,
+        'role' => \App\Http\Middleware\HasRole::class,
+        'permission' => \App\Http\Middleware\HasPermission::class,
     ];
 }

@@ -21,27 +21,53 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::get('/user/permission', 'PermissionController@index')
-    ->middleware('auth:api')
-;
+    ->middleware('auth:api');
 
 
 /**
  * TODO: REMOVE THIS!
  */
-//Route::resource('questions', 'QuestionsController');
 
+/* Installation resource route */
+Route::get('installation', 'Installation\ItemController@index')
+    ->middleware('auth:api', 'permission:installation.read');
+Route::get('installation/{installationId}', 'Installation\ItemController@show')
+    ->middleware('auth:api', 'permission:installation.read', 'auth.route.installation');
+Route::delete('installation/{installationId}', 'Installation\ItemController@destroy')
+    ->middleware('auth:api', 'permission:installation.delete', 'auth.route.installation');
+Route::put('installation/{installationId}', 'Installation\ItemController@update')
+    ->middleware('auth:api', 'permission:installation.update', 'auth.route.installation');
+Route::post('installation', 'Installation\ItemController@create')
+    ->middleware('auth:api', 'permission:installation.create');
 
-/*
- * Installation resource route
- */
-// list installations
-Route::get('installation', 'InstallationController@index');
-// get installation
-Route::get('installation/{id}', 'InstallationController@show')->middleware('auth:api');
-// delete installation
-Route::delete('installation/{id}', 'InstallationController@destroy');
-// update installation
-Route::put('installation', 'InstallationController@store');
-// create installation
-Route::post('installation', 'InstallationController@store');
+/* Space resource route */
+Route::get('space', 'Space\ItemController@index')
+    ->middleware('auth:api', 'permission:space.read');
+Route::get('space/{spaceId}', 'Space\ItemController@show')
+    ->middleware('auth:api', 'permission:space.read', 'auth.route.space');
+Route::delete('space/{spaceId}', 'Space\ItemController@destroy')
+    ->middleware('auth:api', 'permission:space.delete', 'auth.route.space');
+Route::put('space/{spaceId}', 'Space\ItemController@update')
+    ->middleware('auth:api', 'permission:space.update', 'auth.route.space');
+Route::post('space', 'Space\ItemController@create')
+    ->middleware('auth:api', 'permission:space.create');
 
+/* Device resource route */
+Route::get('device', 'Device\ItemController@index')
+    ->middleware('auth:api', 'permission:device.read');
+Route::get('device/{deviceId}', 'Device\ItemController@show')
+    ->middleware('auth:api', 'permission:device.read', 'auth.route.device');
+Route::delete('device/{deviceId}', 'Device\ItemController@destroy')
+    ->middleware('auth:api', 'permission:device.delete', 'auth.route.device');
+Route::put('device/{deviceId}', 'Device\ItemController@update')
+    ->middleware('auth:api', 'permission:device.update', 'auth.route.device');
+Route::post('device', 'Device\ItemController@create')
+    ->middleware('auth:api', 'permission:device.create');
+
+/* Device data resource route */
+Route::get('device/{deviceId}/data/{type}/{dateFrom}/{dateTo}', 'Device\DataController@index')
+    ->middleware('auth:api', 'permission:device.read', 'auth.route.device');
+
+/* Device command resource route */
+Route::put('device/{deviceId}/command', 'Device\CommandController@store')
+    ->middleware('auth:api', 'permission:device.update', 'auth.route.device');

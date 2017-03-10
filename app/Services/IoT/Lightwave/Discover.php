@@ -373,8 +373,15 @@ class Discover implements IotDiscoverable, IotTokenable
     private function configureLightwave(Lightwave $lightwave, $user) {
         $lightwave->vendor_id = $user['lightwaveRfPublic']['user_id'];
         $lightwave->_id = $user['_id'];
-        $lightwave->forename = $user['givenName'];
-        $lightwave->surname = $user['familyName'];
+
+        if (!empty($user['givenName'])) {
+            $lightwave->forename = $user['givenName'];
+        }
+
+        if (!empty($user['familyName'])) {
+            $lightwave->surname = $user['familyName'];
+        }
+
         $lightwave->email = $user['email'];
         $lightwave->active = $user['lightwaveRfPublic']['active'];
     }

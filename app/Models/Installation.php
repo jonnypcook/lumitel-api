@@ -51,4 +51,31 @@ class Installation extends Model
     {
         return $this->hasOne('App\Models\Address');
     }
+
+    /**
+     * The installations that belong to the user.
+     */
+    public function users()
+    {
+        return $this->belongsToMany('App\Models\User', 'user_installation', 'installation_id', 'user_id');
+    }
+
+    /**
+     * check to see if userToCheck is part of installation user set
+     *
+     * @param User $userToCheck
+     * @return bool
+     */
+    public function hasUser(User $userToCheck) {
+        if (!empty($this->users)) {
+            foreach ($this->users as $user) {
+                if ($user->user_id === $userToCheck->user_id) {
+                    return true;
+                }
+            }
+        }
+
+
+        return false;
+    }
 }
