@@ -8,6 +8,8 @@ use App\Repositories\ActivityTypeRepository;
 use App\Repositories\ActivityTypeRepositoryContract;
 use App\Repositories\AddressRepository;
 use App\Repositories\AddressRepositoryContract;
+use App\Repositories\CommandRepository;
+use App\Repositories\CommandRepositoryContract;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceLightWaveRepositoryContract;
 use App\Repositories\DeviceLiteipRepository;
@@ -40,6 +42,8 @@ use App\Repositories\RoleRepository;
 use App\Repositories\RoleRepositoryContract;
 use App\Repositories\SpaceRepository;
 use App\Repositories\SpaceRepositoryContract;
+use App\Repositories\TelemetryRepository;
+use App\Repositories\TelemetryRepositoryContract;
 use App\Repositories\TokenRepository;
 use App\Repositories\TokenRepositoryContract;
 use App\Repositories\UserRepository;
@@ -68,6 +72,7 @@ class RinvexContractProvider extends ServiceProvider
         $this->app->bind(ActivityRepositoryContract::class, ActivityRepository::class);
         $this->app->bind(ActivityTypeRepositoryContract::class, ActivityTypeRepository::class);
         $this->app->bind(AddressRepositoryContract::class, AddressRepository::class);
+        $this->app->bind(CommandRepositoryContract::class, CommandRepository::class);
         $this->app->bind(DeviceLightWaveRepositoryContract::class, DeviceLightWaveRepository::class);
         $this->app->bind(DeviceLiteipRepositoryContract::class, DeviceLiteipRepository::class);
         $this->app->bind(DeviceLiteIpStatusRepositoryContract::class, DeviceLiteIpStatusRepository::class);
@@ -84,6 +89,7 @@ class RinvexContractProvider extends ServiceProvider
         $this->app->bind(PermissionRepositoryContract::class, PermissionRepository::class);
         $this->app->bind(RoleRepositoryContract::class, RoleRepository::class);
         $this->app->bind(SpaceRepositoryContract::class, SpaceRepository::class);
+        $this->app->bind(TelemetryRepositoryContract::class, TelemetryRepository::class);
         $this->app->bind(TokenRepositoryContract::class, TokenRepository::class);
         $this->app->bind(UserRepositoryContract::class, UserRepository::class);
     }

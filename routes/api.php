@@ -65,9 +65,27 @@ Route::post('device', 'Device\ItemController@create')
     ->middleware('auth:api', 'permission:device.create');
 
 /* Device data resource route */
-Route::get('device/{deviceId}/data/{type}/{dateFrom}/{dateTo}', 'Device\DataController@index')
-    ->middleware('auth:api', 'permission:device.read', 'auth.route.device');
+Route::get('device/{deviceId}/data/{type}', function ($type, $device) {
+        return App::call(sprintf('\App\Http\Controllers\Device\DataController@%s', $type), [$type, $device]);
+    })
+    ->where(['type' => 'energy|temperature|event|emergency'])
+    ->middleware('auth:api', 'permission:device.read', 'auth.route.device', 'aware.data');
 
 /* Device command resource route */
-Route::put('device/{deviceId}/command', 'Device\CommandController@store')
-    ->middleware('auth:api', 'permission:device.update', 'auth.route.device');
+Route::put('device/{deviceId}/command/{type}', function ($type, $deviceId) {
+        return App::call(sprintf('\App\Http\Controllers\Device\CommandController@%s', $type), [$type, $deviceId]);
+    })
+    ->where(['type' => 'on|off|lock|unlock|fullLock|dim|open|close|start|stop|set'])
+    ->middleware('auth:api', 'permission:device.read', 'auth.route.device', 'aware.command');
+
+
+//TODO: need to add route groups for shared middleware
+//Route::group(['middleware' => 'auth'], function () {
+//    Route::get('/', function ()    {
+//        // Uses Auth Middleware
+//    });
+//
+//    Route::get('user/profile', function () {
+//        // Uses Auth Middleware
+//    });
+//});

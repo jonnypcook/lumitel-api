@@ -11,8 +11,12 @@ namespace App\Services\IoT\Lightwave\Command;
 class Trv extends \App\Services\IoT\Lightwave\Command implements Settable
 {
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     public function set($value)
     {
-        // TODO: Implement set() method.
+        return $this->sendCommand('trv', 'set', $value);
     }
 }

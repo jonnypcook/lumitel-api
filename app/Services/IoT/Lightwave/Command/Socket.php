@@ -13,26 +13,26 @@ class Socket extends \App\Services\IoT\Lightwave\Command implements Switchable, 
 
     public function lock()
     {
-        // TODO: Implement lock() method.
+        return $this->sendCommand('socket', 'lock');
     }
 
     public function unlock()
     {
-        // TODO: Implement unlock() method.
+        return $this->sendCommand('socket', 'unlock');
     }
 
     public function fullyLock()
     {
-        // TODO: Implement fullyLock() method.
+        return $this->sendCommand('socket', 'fullyLock');
     }
 
     public function switchOn()
     {
-        // TODO: Implement switchOn() method.
+        return $this->sendCommand('socket', 'switch_on');
     }
 
     public function switchOff()
     {
-        // TODO: Implement switchOff() method.
+        return $this->sendCommand('socket', 'switch_off');
     }
 }

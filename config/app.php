@@ -180,6 +180,8 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Rinvex\Repository\Providers\RepositoryServiceProvider::class,
         App\Providers\DiscoverServiceProvider::class,
+        App\Providers\DataServiceProvider::class,
+        App\Providers\CommandServiceProvider::class,
     ],
 
     /*

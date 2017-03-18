@@ -34,4 +34,20 @@ class DeviceType extends Model
     {
         return $this->hasMany('App\Models\Device', 'device_type_id', 'device_type_id');
     }
+
+    /**
+     * The commands that belong to the role.
+     */
+    public function commands()
+    {
+        return $this->belongsToMany('App\Models\Command', 'device_type_command', 'device_type_id', 'command_id');
+    }
+
+    /**
+     * The telemetry that belong to the role.
+     */
+    public function telemetry()
+    {
+        return $this->belongsToMany('App\Models\Telemetry', 'device_type_telemetry', 'device_type_id', 'telemetry_id');
+    }
 }

@@ -20,7 +20,7 @@ class AuthoriseSpaceRoute
     public function handle($request, Closure $next)
     {
         // check parameters
-        $this->runValidator(['spaceId' => 'bail|numeric|min:1'], $request->route()->parameters());
+        $this->runValidator(['spaceId' => 'required|bail|numeric|min:1'], $request->route()->parameters());
 
         // authorise device
         $space = $this->authoriseSpace($request->route()->parameter('spaceId'));

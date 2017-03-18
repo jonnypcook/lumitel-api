@@ -1,14 +1,15 @@
 <?php
 namespace App\Services\IoT\Lightwave;
 
+use App\Models\Device;
+use App\Services\IoT\IotDataQueryable;
 use App\Services\IoT\IotTokenable;
 use App\Services\IoT\Token;
 use Eloquent;
 use DB;
-use Faker\Provider\cs_CZ\DateTime;
 use GuzzleHttp\Client;
 
-class Data implements IotTokenable
+class Data implements IotTokenable, IotDataQueryable
 {
     use Token;
 
@@ -47,6 +48,7 @@ class Data implements IotTokenable
 
     /**
      * @param \DateTime $from
+     * @return void
      */
     public function setFrom($from)
     {
@@ -63,6 +65,7 @@ class Data implements IotTokenable
 
     /**
      * @param \DateTime $to
+     * @return void
      */
     public function setTo($to)
     {
@@ -96,6 +99,7 @@ class Data implements IotTokenable
 
     /**
      * @param int $resultsPerPage
+     * @return void
      */
     public function setResultsPerPage($resultsPerPage)
     {
@@ -112,6 +116,7 @@ class Data implements IotTokenable
 
     /**
      * @param int $pageNumber
+     * @return void
      */
     public function setPageNumber($pageNumber)
     {
@@ -165,6 +170,47 @@ class Data implements IotTokenable
 
         $url = sprintf($this->getUri(), $deviceId, $dataType);
 
+
+        $queryData = [
+            'from' => $this->getFrom()->format('Y-m-d\TH:i:s'),
+            'to' => $this->getTo()->format('Y-m-d\TH:i:s'),
+            'perpage' => $this->getResultsPerPage(),
+            'page' => $this->getPageNumber()
+        ];
+
+        $response = $client->get($url, array(
+            'verify' => false,
+            'allow_redirects' => true,
+            'headers' => [
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer ' . $token
+            ],
+            'query' => $queryData
+        ));
+
+
+        if ($response->getStatusCode() !== 200) {
+            throw new \Exception('service failed to accept request');
+        }
+
+        return json_decode($response->getBody(), $assoc);
+    }
+
+    /**
+     * @param Device $device
+     * @param $type
+     * @param array ...$configuration
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getDeviceData(Device $device, $type, ...$configuration)
+    {
+        $token = $this->getToken();
+        $client = new Client();
+
+        $url = sprintf($this->getUri(), $device->provider->vendor_id, $type);
+
+
         $queryData = [
             'from' => $this->getFrom()->format('Y-m-d\TH:i:s'),
             'to' => $this->getTo()->format('Y-m-d\TH:i:s'),
@@ -187,7 +233,6 @@ class Data implements IotTokenable
             throw new \Exception('service failed to respond on: ' . $gatewayUrl);
         }
 
-        return json_decode($response->getBody(), $assoc);
+        return json_decode($response->getBody(), !empty($configuration[0]));
     }
-
 }

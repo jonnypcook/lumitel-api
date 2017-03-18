@@ -20,7 +20,7 @@ class AuthoriseDeviceRoute
     public function handle($request, Closure $next)
     {
         // check parameters
-        $this->runValidator(['deviceId' => 'bail|numeric|min:1'], $request->route()->parameters());
+        $this->runValidator(['deviceId' => 'required|bail|numeric|min:1'], $request->route()->parameters());
 
         // authorise device
         $device = $this->authoriseDevice($request->route()->parameter('deviceId'));

@@ -13,26 +13,26 @@ class Relay extends \App\Services\IoT\Lightwave\Command implements Openable, Loc
 
     public function lock()
     {
-        // TODO: Implement lock() method.
+        return $this->sendCommand('relay', 'lock');
     }
 
     public function unlock()
     {
-        // TODO: Implement unlock() method.
+        return $this->sendCommand('relay', 'unlock');
     }
 
     public function fullyLock()
     {
-        // TODO: Implement fullyLock() method.
+        return $this->sendCommand('relay', 'fullyLock');
     }
 
     public function open()
     {
-        // TODO: Implement open() method.
+        return $this->sendCommand('relay', 'open');
     }
 
     public function close()
     {
-        // TODO: Implement close() method.
+        return $this->sendCommand('relay', 'close');
     }
 }

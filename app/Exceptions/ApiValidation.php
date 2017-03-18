@@ -8,8 +8,7 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Validator;
 
 trait ApiValidation
 {
@@ -20,9 +19,7 @@ trait ApiValidation
      */
     function runValidator(array $configuration, $data) {
         $validator = $this->createValidator($configuration, $data);
-        if ($validator->fails()) {
-            throw new BadRequestHttpException($this->formatValidatorErrorMessage($validator->errors()->messages()));
-        }
+        $validator->validate();
 
         return true;
     }
@@ -36,15 +33,5 @@ trait ApiValidation
         return Validator::make($data, $configuration);
     }
 
-    /**
-     * format our validation error message
-     * @param $errors
-     * @return mixed
-     */
-    function formatValidatorErrorMessage($errors) {
-        return array_reduce($errors, function ($errorMessage = '', $error) {
-            $errorMessage .= ' ' . implode(' ', $error);
-            return ltrim($errorMessage, ' ');
-        });
-    }
+
 }

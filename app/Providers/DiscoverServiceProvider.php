@@ -60,22 +60,5 @@ class DiscoverServiceProvider extends ServiceProvider
                 Config::get('iot.litewaverf.api.auth'));
         });
 
-        // Command service
-        $this->app->bind('Lightwave\Command\LightService', function ($app) {
-            return new \App\Services\IoT\Lightwave\Command\Light(
-                Config::get('iot.litewaverf.credentials.clientId'),
-                Config::get('iot.litewaverf.api.command'));
-        });
-
-
-        // Data service
-        $this->app->bind('Lightwave\DataService', function ($app) {
-            return new \App\Services\IoT\Lightwave\Data(
-                Config::get('iot.litewaverf.credentials.clientId'),
-                Config::get('iot.litewaverf.api.device-data'));
-        });
-
-
-
     }
 }

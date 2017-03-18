@@ -16,5 +16,7 @@ class DatabaseLiveSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(ImageTypeSeeder::class);
         $this->call(DeviceLiteIpStatusSeeder::class);
+        $this->call(CommandSeeder::class);
+        $this->call(TelemetrySeeder::class);
     }
 }

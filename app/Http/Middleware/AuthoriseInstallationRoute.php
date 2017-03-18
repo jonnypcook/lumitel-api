@@ -20,7 +20,7 @@ class AuthoriseInstallationRoute
     public function handle($request, Closure $next)
     {
         // check parameters
-        $this->runValidator(['installationId' => 'bail|numeric|min:1'], $request->route()->parameters());
+        $this->runValidator(['installationId' => 'required|bail|numeric|min:1'], $request->route()->parameters());
 
         // authorise device
         $installation = $this->authoriseInstallation($request->route()->parameter('installationId'));

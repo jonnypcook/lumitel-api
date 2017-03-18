@@ -24,7 +24,7 @@ return [
         ],
         'api' => [
             'discovery' => 'https://pub-api.lightwaverf.com/api/com/discovery',
-            'command' => 'https://pub-api.lightwaverf.com/api/com/device/%d/command/%s/%s',
+            'command' => 'https://pub-api.lightwaverf.com/api/com/device/%d/command/%s/%s/s%',
             'auth' => 'https://auth.lightwaverf.com/token',
             'device-data' => 'https://pub-api.lightwaverf.com/api/com/device/%d/data/%s',
         ]

@@ -59,5 +59,7 @@ class Kernel extends HttpKernel
         'auth.route.installation' => \App\Http\Middleware\AuthoriseInstallationRoute::class,
         'role' => \App\Http\Middleware\HasRole::class,
         'permission' => \App\Http\Middleware\HasPermission::class,
+        'aware.command' => \App\Http\Middleware\CommandAware::class,
+        'aware.data' => \App\Http\Middleware\DataAware::class,
     ];
 }

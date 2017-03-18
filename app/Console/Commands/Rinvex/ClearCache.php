@@ -2,12 +2,10 @@
 
 namespace App\Console\Commands\Rinvex;
 
-use App\Models\Installation;
-use App\Models\Lightwave;
-use App\Models\Owner;
 use App\Repositories\ActivityRepository;
 use App\Repositories\ActivityTypeRepository;
 use App\Repositories\AddressRepository;
+use App\Repositories\CommandRepository;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceLiteipRepository;
 use App\Repositories\DeviceLiteIpStatusRepository;
@@ -24,15 +22,12 @@ use App\Repositories\OwnerRepository;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\SpaceRepository;
+use App\Repositories\TelemetryRepository;
 use App\Repositories\TokenRepository;
 use App\Repositories\UserRepository;
-use App\Services\IoT\IotDiscoverable;
-use App\Services\IoT\Lightwave\Data;
-use App\Services\IoT\Lightwave\Discover;
-use App\Services\IoT\Lightwave\Command\Light;
 use Illuminate\Console\Command;
+use Rinvex\Repository\Repositories\EloquentRepository;
 use Symfony\Component\Console\Output\OutputInterface;
-use Validator;
 
 class ClearCache extends Command
 {
@@ -60,6 +55,7 @@ class ClearCache extends Command
         ActivityRepository $activityRepository,
         ActivityTypeRepository $activityTypeRepository,
         AddressRepository $addressRepository,
+        CommandRepository $commandRepository,
         DeviceLightWaveRepository $deviceLightWaveRepository,
         DeviceLiteipRepository $deviceLiteipRepository,
         DeviceLiteIpStatusRepository $deviceLiteIpStatusRepository,
@@ -76,76 +72,26 @@ class ClearCache extends Command
         PermissionRepository $permissionRepository,
         RoleRepository $roleRepository,
         SpaceRepository $spaceRepository,
+        TelemetryRepository $telemetryRepository,
         TokenRepository $tokenRepository,
         UserRepository $userRepository
     )
     {
         $this->info('Starting Rinvex repository cache clean');
 
-        $this->info(sprintf('removing %s cache', get_class($activityRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $activityRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($activityTypeRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $activityTypeRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($addressRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $addressRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($deviceLightWaveRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $deviceLightWaveRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($deviceLiteipRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $deviceLiteipRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($deviceLiteIpStatusRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $deviceLiteIpStatusRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($deviceRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $deviceRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($deviceTypeRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $deviceTypeRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($imageRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $imageRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($imageTypeRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $imageTypeRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($installationRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $installationRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($iotSourceRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $iotSourceRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($lightwaveRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $lightwaveRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($liteipDrawingRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $liteipDrawingRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($liteipRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $liteipRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($ownerRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $ownerRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($permissionRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $permissionRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($roleRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $roleRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($spaceRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $spaceRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($tokenRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $tokenRepository->forgetCache();
-
-        $this->info(sprintf('removing %s cache', get_class($userRepository)), OutputInterface::VERBOSITY_VERBOSE);
-        $userRepository->forgetCache();
+        foreach (func_get_args() as $arg) {
+            $this->clearRepositoryCache($arg);
+        }
 
         $this->info('Finished');
+    }
+
+    /**
+     * @param EloquentRepository $eloquentRepository
+     */
+    protected function clearRepositoryCache(EloquentRepository $eloquentRepository) {
+        $this->info(sprintf('removing %s cache', get_class($eloquentRepository)), OutputInterface::VERBOSITY_VERBOSE);
+        $eloquentRepository->forgetCache();
     }
 
 

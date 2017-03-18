@@ -13,11 +13,11 @@ class ElectricSwitch extends \App\Services\IoT\Lightwave\Command implements Swit
 
     public function switchOn()
     {
-        // TODO: Implement switchOn() method.
+        return $this->sendCommand('electricSwitch', 'switch_on');
     }
 
     public function switchOff()
     {
-        // TODO: Implement switchOff() method.
+        return $this->sendCommand('electricSwitch', 'switch_off');
     }
 }

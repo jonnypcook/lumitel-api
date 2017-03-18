@@ -32,10 +32,26 @@ trait ApiHandler
             case BadRequestHttpException::class:
                 return $this->badRequest('Bad Request: ' . $e->getMessage());
             case ValidationException::class:
-                return $this->badRequest('Bad Request: ' . $e->getMessage());
+                return $this->badRequest('Bad Request: ' . $this->formatValidatorErrorMessage($e->validator->errors()->all()));
         }
 
-        return $this->badRequest($e->getMessage());
+        return empty($e->getMessage()) ? $this->badRequest() : $this->badRequest($e->getMessage());
+    }
+
+    /**
+     * format our validation error message
+     * @param $errors
+     * @return mixed
+     */
+    function formatValidatorErrorMessage($errors) {
+        return array_reduce($errors, function ($errorMessage = '', $error) {
+            if (is_array($error)) {
+                $errorMessage .= ' ' . implode(' ', $error);
+            } else {
+                $errorMessage .= ' ' . $error;
+            }
+            return ltrim($errorMessage, ' ');
+        });
     }
 
     /**

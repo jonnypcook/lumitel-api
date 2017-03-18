@@ -13,11 +13,11 @@ class Event extends \App\Services\IoT\Lightwave\Command implements Startable
 
     public function start()
     {
-        // TODO: Implement start() method.
+        return $this->sendCommand('event', 'start');
     }
 
     public function stop()
     {
-        // TODO: Implement stop() method.
+        return $this->sendCommand('event', 'stop');
     }
 }

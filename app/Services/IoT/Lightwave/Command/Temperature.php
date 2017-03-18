@@ -13,16 +13,16 @@ class Temperature extends \App\Services\IoT\Lightwave\Command implements Switcha
 
     public function set($value)
     {
-        // TODO: Implement set() method.
+        return $this->sendCommand('temperature', 'set', $value);
     }
 
     public function switchOn()
     {
-        // TODO: Implement switchOn() method.
+        return $this->sendCommand('temperature', 'switch_on');
     }
 
     public function switchOff()
     {
-        // TODO: Implement switchOff() method.
+        return $this->sendCommand('temperature', 'switch_off');
     }
 }

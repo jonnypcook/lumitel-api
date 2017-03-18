@@ -13,11 +13,11 @@ class Mood extends \App\Services\IoT\Lightwave\Command implements Startable
 
     public function start()
     {
-        // TODO: Implement start() method.
+        return $this->sendCommand('mood', 'start');
     }
 
     public function stop()
     {
-        // TODO: Implement stop() method.
+        return $this->sendCommand('mood', 'stop');
     }
 }
