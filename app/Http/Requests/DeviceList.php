@@ -38,8 +38,9 @@ class DeviceList extends FormRequest
     public function rules()
     {
         return [
-            'installationId' => 'bail|numeric|min:1',
-            'spaceId' => 'bail|numeric|min:1',
+            'installationId' => 'bail|required_without:spaceId|numeric|min:1',
+            'spaceId' => 'bail|required_without:installationId|numeric|min:1',
+            'metering' => 'bail|boolean',
         ];
     }
 }

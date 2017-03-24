@@ -32,7 +32,7 @@ trait Installation
         }
 
         $installationRepository = new InstallationRepository();
-        $installation = $installationRepository->with(['users'])->find($installationId);
+        $installation = $installationRepository->with(['users', 'address'])->find($installationId);
 
         if (!$installation) {
             throw new ModelNotFoundException();

@@ -49,7 +49,7 @@ class Installation extends Model
      */
     public function address()
     {
-        return $this->hasOne('App\Models\Address');
+        return $this->belongsTo('App\Models\Address', 'address_id');
     }
 
     /**

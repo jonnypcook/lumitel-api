@@ -28,7 +28,9 @@ class SpaceList extends FormRequest
     public function rules()
     {
         return [
-            'installationId' => 'bail|required|numeric|min:1'
+            'installationId' => 'bail|required:spaceId|numeric|min:1',
+            'parentId' => 'bail|numeric|min:1',
+            'ignoreRoot' => 'bail|boolean',
         ];
     }
 }

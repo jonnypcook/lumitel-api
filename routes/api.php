@@ -55,6 +55,8 @@ Route::post('space', 'Space\ItemController@create')
 /* Device resource route */
 Route::get('device', 'Device\ItemController@index')
     ->middleware('auth:api', 'permission:device.read');
+Route::get('device/summary', 'Device\ItemController@summary')
+    ->middleware('auth:api', 'permission:device.read');
 Route::get('device/{deviceId}', 'Device\ItemController@show')
     ->middleware('auth:api', 'permission:device.read', 'auth.route.device');
 Route::delete('device/{deviceId}', 'Device\ItemController@destroy')

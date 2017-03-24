@@ -22,10 +22,10 @@ class Address extends Model
 
 
     /**
-     * Get the installation that has the address.
+     * Get the installations for the owner.
      */
-    public function installation()
+    public function installations()
     {
-        return $this->belongsTo('App\Models\Installation', 'address_id');
+        return $this->hasMany('App\Models\Installation', 'address_id', 'address_id');
     }
 }

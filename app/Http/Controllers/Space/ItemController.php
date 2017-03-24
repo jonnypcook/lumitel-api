@@ -8,19 +8,42 @@ use App\Repositories\SpaceRepository;
 use App\Transformer\SpaceTransformer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ItemController extends Controller
 {
     /**
      * @param Request $request
+     * @param SpaceList $spaceList
      * @param SpaceRepository $spaceRepository
      * @return mixed
+     * @throws \Exception
      */
     public function index(Request $request, SpaceList $spaceList, SpaceRepository $spaceRepository)
     {
+        $ignoreRoot = $request->get('ignoreRoot', false);
+        $parentId = $request->get('parentId', false);
         $installationId = $request->get('installationId', false);
 
-        $spaces = $spaceRepository->where('installation_id', '=', $installationId)->findAll();
+        if (($ignoreRoot !== false) && ($parentId === false)) {
+            $spaceRepositoryRoot = new SpaceRepository();
+            $rootSpace = $spaceRepositoryRoot->where('installation_id', '=', $installationId)->where('parent_id')->findFirst();
+            if (!$rootSpace) {
+                throw new \Exception('Installation does not have a root space');
+            }
+
+            $parentId = $rootSpace->space_id;
+        }
+
+        $spaceRepository->where('installation_id', '=', $installationId);
+
+        if ($parentId !== false) {
+            $spaceRepository->where('parent_id', '=', $parentId);
+        } else {
+            $spaceRepository->where('parent_id');
+        }
+
+        $spaces = $spaceRepository->findAll();
 
         return $this->response->withCollection($spaces, new SpaceTransformer());
     }
