@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\LiteIP;
 
+use App\Console\Commands\ConsoleErrors;
 use App\Models\Installation;
 use App\Models\Owner;
 use App\Repositories\InstallationRepository;
@@ -16,6 +17,7 @@ use Validator;
 
 class Consume extends Command
 {
+    use ConsoleErrors;
     /**
      * The name and signature of the console command.
      *
@@ -228,24 +230,6 @@ class Consume extends Command
         }
     }
 
-    /**
-     * display errors and exit
-     * @param $errors
-     */
-    public function errorAndExit($errors) {
-        $this->comment('Command failed with the following errors:');
-        foreach ((array)$errors as $error) {
-            if (is_array($error)) {
-                foreach ($error as $item) {
-                    $this->error($item);
-                }
 
-            } else {
-                $this->error($error);
-            }
-        }
-
-        exit;
-    }
 
 }

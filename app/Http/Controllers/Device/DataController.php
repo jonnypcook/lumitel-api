@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Device;
 use App\Http\Requests\DeviceData;
 use App\Models\Device;
 use App\Services\IoT\IotDataQueryable;
-use App\Services\IoT\Lightwave\Data;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +13,6 @@ class DataController extends Controller
     protected $dataService;
 
     /**
-
      * DataController constructor.
      */
     public function __construct(\EllipseSynergie\ApiResponse\Laravel\Response $response, IotDataQueryable $dataService)

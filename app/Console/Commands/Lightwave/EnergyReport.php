@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\Lightwave;
 
+use App\Console\Commands\ConsoleErrors;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceRepository;
 use Illuminate\Console\Command;
@@ -10,6 +11,8 @@ use File;
 
 class EnergyReport extends Command
 {
+    use ConsoleErrors;
+
     /**
      * The name and signature of the console command.
      *
@@ -43,7 +46,7 @@ class EnergyReport extends Command
         // validate parameters
         $validator = Validator::make($this->arguments(), [
             'deviceId' => 'bail|required|numeric|min:1',
-            'dateFrom' => 'bail|required|date|min:1',
+            'dateFrom' => 'bail|required|date',
             'dateTo' => 'bail|required|date',
             'dir' => 'bail|required|string'
         ]);
@@ -105,23 +108,5 @@ class EnergyReport extends Command
 
     }
 
-    /**
-     * display errors and exit
-     * @param $errors
-     */
-    public function errorAndExit($errors) {
-        $this->comment('Command failed with the following errors:');
-        foreach ((array)$errors as $error) {
-            if (is_array($error)) {
-                foreach ($error as $item) {
-                    $this->error($item);
-                }
 
-            } else {
-                $this->error($error);
-            }
-        }
-
-        exit;
-    }
 }

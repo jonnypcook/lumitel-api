@@ -26,7 +26,18 @@ class Device extends Model
      *
      * @var array
      */
-    protected $fillable = ['device_type_id', 'space_id', 'provider_id', 'provider_type', 'label', 'emergency', 'x', 'y'];
+    protected $fillable = ['device_type_id', 'space_id', 'provider_id', 'provider_type', 'label', 'emergency', 'x', 'y', 'last_reading_current', 'last_reading_total', 'last_reading_at'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'last_reading_at',
+        'created_at',
+        'updated_at'
+    ];
 
     /**
      * Get the deviceType for the device

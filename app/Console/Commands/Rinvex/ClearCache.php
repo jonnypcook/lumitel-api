@@ -2,10 +2,12 @@
 
 namespace App\Console\Commands\Rinvex;
 
+use App\Console\Commands\ConsoleErrors;
 use App\Repositories\ActivityRepository;
 use App\Repositories\ActivityTypeRepository;
 use App\Repositories\AddressRepository;
 use App\Repositories\CommandRepository;
+use App\Repositories\DeviceHistoryRepository;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceLiteipRepository;
 use App\Repositories\DeviceLiteIpStatusRepository;
@@ -31,6 +33,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ClearCache extends Command
 {
+    use ConsoleErrors;
+
     /**
      * The name and signature of the console command.
      *
@@ -56,6 +60,7 @@ class ClearCache extends Command
         ActivityTypeRepository $activityTypeRepository,
         AddressRepository $addressRepository,
         CommandRepository $commandRepository,
+        DeviceHistoryRepository $deviceHistoryRepository,
         DeviceLightWaveRepository $deviceLightWaveRepository,
         DeviceLiteipRepository $deviceLiteipRepository,
         DeviceLiteIpStatusRepository $deviceLiteIpStatusRepository,

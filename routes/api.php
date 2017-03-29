@@ -68,10 +68,16 @@ Route::post('device', 'Device\ItemController@create')
 
 /* Device data resource route */
 Route::get('device/{deviceId}/data/{type}', function ($type, $device) {
-        return App::call(sprintf('\App\Http\Controllers\Device\DataController@%s', $type), [$type, $device]);
-    })
+    return App::call(sprintf('\App\Http\Controllers\Device\DataController@%s', $type), [$type, $device]);
+})
     ->where(['type' => 'energy|temperature|event|emergency'])
     ->middleware('auth:api', 'permission:device.read', 'auth.route.device', 'aware.data');
+Route::get('device/{deviceId}/data/{type}/latest', function ($type, $device) {
+    return App::call(sprintf('\App\Http\Controllers\Device\LatestController@%s', $type), [$type, $device]);
+})
+    ->where(['type' => 'energy|temperature|event|emergency'])
+    ->middleware('auth:api', 'permission:device.read', 'auth.route.device', 'aware.data');
+
 
 /* Device command resource route */
 Route::put('device/{deviceId}/command/{type}', function ($type, $deviceId) {

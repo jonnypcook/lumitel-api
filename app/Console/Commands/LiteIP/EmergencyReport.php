@@ -2,10 +2,13 @@
 
 namespace App\Console\Commands\LiteIP;
 
+use App\Console\Commands\ConsoleErrors;
 use Illuminate\Console\Command;
 
 class EmergencyReport extends Command
 {
+    use ConsoleErrors;
+
     /**
      * The name and signature of the console command.
      *

@@ -10,6 +10,8 @@ use App\Repositories\AddressRepository;
 use App\Repositories\AddressRepositoryContract;
 use App\Repositories\CommandRepository;
 use App\Repositories\CommandRepositoryContract;
+use App\Repositories\DeviceHistoryRepository;
+use App\Repositories\DeviceHistoryRepositoryContract;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceLightWaveRepositoryContract;
 use App\Repositories\DeviceLiteipRepository;
@@ -73,6 +75,7 @@ class RinvexContractProvider extends ServiceProvider
         $this->app->bind(ActivityTypeRepositoryContract::class, ActivityTypeRepository::class);
         $this->app->bind(AddressRepositoryContract::class, AddressRepository::class);
         $this->app->bind(CommandRepositoryContract::class, CommandRepository::class);
+        $this->app->bind(DeviceHistoryRepositoryContract::class, DeviceHistoryRepository::class);
         $this->app->bind(DeviceLightWaveRepositoryContract::class, DeviceLightWaveRepository::class);
         $this->app->bind(DeviceLiteipRepositoryContract::class, DeviceLiteipRepository::class);
         $this->app->bind(DeviceLiteIpStatusRepositoryContract::class, DeviceLiteIpStatusRepository::class);
