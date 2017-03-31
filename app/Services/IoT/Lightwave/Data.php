@@ -8,10 +8,16 @@ use App\Services\IoT\Token;
 use Eloquent;
 use DB;
 use GuzzleHttp\Client;
+use Iterator;
 
-class Data implements IotTokenable, IotDataQueryable
+class Data implements IotTokenable, IotDataQueryable, Iterator
 {
     use Token;
+
+    /**
+     * @var int
+     */
+    private $totalResults = 0;
 
     /**
      * @var int
@@ -22,6 +28,11 @@ class Data implements IotTokenable, IotDataQueryable
      * @var int
      */
     private $pageNumber = 1;
+
+    /**
+     * @var int
+     */
+    private $totalPages = 1;
 
     /**
      * @var string
@@ -37,6 +48,50 @@ class Data implements IotTokenable, IotDataQueryable
      * @var \DateTime
      */
     private $to;
+
+    /**
+     * @var Device
+     */
+    private $device;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @return Device
+     */
+    public function getDevice()
+    {
+        return $this->device;
+    }
+
+    /**
+     * @param Device $device
+     */
+    public function setDevice($device)
+    {
+        $this->device = $device;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+
 
     /**
      * @return \DateTime
@@ -123,6 +178,41 @@ class Data implements IotTokenable, IotDataQueryable
         $this->pageNumber = $pageNumber;
     }
 
+    /**
+     * @return int
+     */
+    public function getTotalPages()
+    {
+        return $this->totalPages;
+    }
+
+    /**
+     * @param int $totalPages
+     */
+    public function setTotalPages($totalPages)
+    {
+        $this->totalPages = $totalPages;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalResults()
+    {
+        return $this->totalResults;
+    }
+
+    /**
+     * @param int $totalResults
+     */
+    public function setTotalResults($totalResults)
+    {
+
+        $this->totalResults = $totalResults;
+        $this->setTotalPages(ceil($totalResults / $this->getResultsPerPage()));
+    }
+
+
 
     /**
      * Data constructor.
@@ -169,7 +259,6 @@ class Data implements IotTokenable, IotDataQueryable
         $client = new Client();
 
         $url = sprintf($this->getUri(), $deviceId, $dataType);
-
 
         $queryData = [
             'from' => $this->getFrom()->format('Y-m-d\TH:i:s'),
@@ -234,5 +323,70 @@ class Data implements IotTokenable, IotDataQueryable
         }
 
         return json_decode($response->getBody(), !empty($configuration[0]));
+    }
+
+    /**
+     * Return the current element
+     * @link http://php.net/manual/en/iterator.current.php
+     * @return mixed Can return any type.
+     * @since 5.0.0
+     */
+    public function current()
+    {
+        $data = $this->getDeviceData($this->getDevice(), $this->getType(), true);
+
+        if (!empty($data['paginator']) && !empty($data['paginator']['totalRecords'])) {
+            $this->setTotalResults((int)$data['paginator']['totalRecords']);
+        }
+
+        return $data['rows'];
+    }
+
+    /**
+     * Move forward to next element
+     * @link http://php.net/manual/en/iterator.next.php
+     * @return void Any returned value is ignored.
+     * @since 5.0.0
+     */
+    public function next()
+    {
+        $this->setPageNumber($this->getPageNumber() + 1);
+    }
+
+    /**
+     * Return the key of the current element
+     * @link http://php.net/manual/en/iterator.key.php
+     * @return mixed scalar on success, or null on failure.
+     * @since 5.0.0
+     */
+    public function key()
+    {
+        return $this->getPageNumber();
+    }
+
+    /**
+     * Checks if current position is valid
+     * @link http://php.net/manual/en/iterator.valid.php
+     * @return boolean The return value will be casted to boolean and then evaluated.
+     * Returns true on success or false on failure.
+     * @since 5.0.0
+     */
+    public function valid()
+    {
+        return
+            !empty($this->device) &&
+            !empty($this->type) &&
+            ($this->getPageNumber() <= $this->getTotalPages());
+    }
+
+    /**
+     * Rewind the Iterator to the first element
+     * @link http://php.net/manual/en/iterator.rewind.php
+     * @return void Any returned value is ignored.
+     * @since 5.0.0
+     */
+    public function rewind()
+    {
+        $this->setPageNumber(1);
     }
 }

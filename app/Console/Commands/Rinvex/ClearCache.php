@@ -8,6 +8,7 @@ use App\Repositories\ActivityTypeRepository;
 use App\Repositories\AddressRepository;
 use App\Repositories\CommandRepository;
 use App\Repositories\DeviceHistoryRepository;
+use App\Repositories\DeviceHistoryTransactionRepository;
 use App\Repositories\DeviceLightWaveRepository;
 use App\Repositories\DeviceLiteipRepository;
 use App\Repositories\DeviceLiteIpStatusRepository;
@@ -60,6 +61,7 @@ class ClearCache extends Command
         ActivityTypeRepository $activityTypeRepository,
         AddressRepository $addressRepository,
         CommandRepository $commandRepository,
+        DeviceHistoryTransactionRepository $deviceHistoryTransactionRepository,
         DeviceHistoryRepository $deviceHistoryRepository,
         DeviceLightWaveRepository $deviceLightWaveRepository,
         DeviceLiteipRepository $deviceLiteipRepository,

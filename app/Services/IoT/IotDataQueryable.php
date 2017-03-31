@@ -10,6 +10,7 @@ namespace App\Services\IoT;
 
 
 use App\Models\Device;
+use Iterator;
 
 interface IotDataQueryable
 {

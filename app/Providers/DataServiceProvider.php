@@ -31,20 +31,6 @@ class DataServiceProvider extends ServiceProvider
     {
         // Conditional discovery rules
         $this->app
-            ->when('\App\Http\Controllers\Device\DataController')
-            ->needs(IotDataQueryable::class)
-            ->give(function ($app) {
-                switch ($app->request->device->provider_type) {
-                    case DeviceLightWave::class:
-                        return $app->make('Lightwave\DataService');
-                    case DeviceLiteIp::class:
-                        return $app->make('LiteIP\DataService');
-                }
-
-                throw new BadRequestHttpException('Unexpected provider type in data controller service providor');
-            });
-
-        $this->app
             ->when('\App\Http\Controllers\Device\LatestController')
             ->needs(IotDataQueryable::class)
             ->give(function ($app) {
