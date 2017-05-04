@@ -27,9 +27,9 @@ class CreateDeviceTable extends Migration
             $table->integer('x')->nullable();
             $table->integer('y')->nullable();
 
-            $table->float('last_reading_current', 8, 2);
-            $table->float('last_reading_total', 8, 2);
-            $table->timestamp('last_reading_at');
+            $table->float('last_reading_current', 8, 2)->nullable();
+            $table->float('last_reading_total', 8, 2)->nullable();
+            $table->timestamp('last_reading_at')->nullable();
             $table->timestamps();
 
             $table->foreign('space_id')->references('space_id')->on('space');

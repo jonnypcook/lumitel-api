@@ -5,7 +5,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1.1",
         "laravel/framework": "5.4.*",
         "laravel/passport": "^1.0",
         "ellipsesynergie/api-response": "^0.12.3",
@@ -42,6 +42,10 @@
         ],
         "post-install-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postInstall",
+            "App\\Support\\Deploy\\ComposerScripts::postInstall",
+            "php artisan migrate",
+            "php artisan db:seed --class=DatabaseLiveSeeder",
+            "php artisan passport:install",
             "php artisan optimize"
         ],
         "post-update-cmd": [
@@ -50,6 +54,7 @@
         ]
     },
     "config": {
-        "preferred-install": "dist"
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }

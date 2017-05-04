@@ -1,0 +1,5 @@
+---
+applications:
+- name: insight-api
+  memory: 128M
+  random-route: true
