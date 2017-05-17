@@ -14,7 +14,7 @@ class ComposerScripts
     public static $services = [
         [
             'service_key'  => 'compose-for-mysql',
-            'service_name' => "Compose for MySQL-qm",
+            'service_name' => "Compose for MySQL-fo",
             'env_mapping'  => [
                 3 => 'DB_USERNAME',
                 5 => 'DB_PASSWORD',

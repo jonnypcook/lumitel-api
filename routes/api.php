@@ -16,17 +16,22 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
+/* User resource route */
+Route::get('user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('/user/permission', 'PermissionController@index')
+Route::put('user', 'User\ItemController@update')
+    ->middleware('auth:api', 'permission:user.update');
+
+/* User permission resource route */
+Route::get('user/permission', 'User\PermissionController@index')
     ->middleware('auth:api');
 
+/* User password resource route */
+Route::put('user/password', 'User\PasswordController@update')
+    ->middleware('auth:api', 'permission:user.update');
 
-/**
- * TODO: REMOVE THIS!
- */
 
 /* Installation resource route */
 Route::get('installation', 'Installation\ItemController@index')

@@ -1,5 +1,6 @@
 ---
 applications:
 - name: insight-api
-  memory: 128M
   random-route: true
+  buildpack: https://github.com/cloudfoundry/php-buildpack
+  memory: 128M
